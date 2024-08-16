@@ -1,18 +1,27 @@
 package be.ehb.angel_carreno_parraga.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.GenerationType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+import jakarta.persistence.GenerationType;
 
 @Entity
 public class NieuwsArtikel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @GenericGenerator(
+            name = "students-sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "artikels_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "0"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            })
     //Long wordt beter ondersteund dan gewoon een int JPA
+    @GeneratedValue(generator = "artikels-sequence-generator")
     private Long id;
 
     private String titel;

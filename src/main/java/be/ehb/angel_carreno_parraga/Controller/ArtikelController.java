@@ -2,15 +2,14 @@ package be.ehb.angel_carreno_parraga.Controller;
 
 import be.ehb.angel_carreno_parraga.DAO.NieuwsArtikelDAO;
 import be.ehb.angel_carreno_parraga.Model.NieuwsArtikel;
-import org.springframework.ui.Model;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/Index")
@@ -24,7 +23,7 @@ public class ArtikelController {
     }
     @ModelAttribute("Index")
     public Iterable<NieuwsArtikel> findAll(){
-        return repo.findAll();
+        return repo.findLast10();
     }
 
     @ModelAttribute("nieuw_nieuwsartikel")
@@ -33,26 +32,26 @@ public class ArtikelController {
     }
 
     ////Met deze methode roepen we de "Index" pagina aan
-    @RequestMapping(value = {"/", "Index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
     public String showIndex(Model map){
         return "index";
     }
 
     //Met deze methode roepen we de "New" pagina aan
-    @RequestMapping(value = {"/New"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String showNew(Model map){
         return "new";
     }
 
     //Met deze methode roepen we de "Detail" pagina aan
-    @RequestMapping(value = {"/Details"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/details"}, method = RequestMethod.GET)
     public String showDetails(Model map){
         return "details";
     }
 
     ////Met deze methode roepen we de "About" pagina aan
     //heeft geen "(Modelmap map)" nodig als parameter omdat deze pagina statish is
-    @RequestMapping(value = {"/About"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/about"}, method = RequestMethod.GET)
     public String showAbout(){
         return "about";
     }
